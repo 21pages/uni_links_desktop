@@ -4,11 +4,10 @@
 
 [pub-image]: https://img.shields.io/pub/v/uni_links_desktop.svg
 [pub-url]: https://pub.dev/packages/uni_links_desktop
-
 [discord-image]: https://img.shields.io/discord/884679008049037342.svg
 [discord-url]: https://discord.gg/zPa6EZ2jqb
 
-A desktop (supports macOS and Windows) implementation of [uni_links](https://github.com/leanflutter/uni_links_desktop) plugin.
+A desktop (supports macOS and Windows) implementation of [uni_links](https://pub.dev/packages/uni_links) plugin.
 
 ---
 
@@ -20,8 +19,8 @@ A desktop (supports macOS and Windows) implementation of [uni_links](https://git
   - [Quick Start](#quick-start)
     - [Installation](#installation)
     - [Usage](#usage)
-        - [macOS](#macos)
-        - [Windows](#windows)
+      - [macOS](#macos)
+      - [Windows](#windows)
   - [Who's using it?](#whos-using-it)
   - [License](#license)
 
@@ -31,7 +30,7 @@ A desktop (supports macOS and Windows) implementation of [uni_links](https://git
 
 | Linux | macOS | Windows |
 | :---: | :---: | :-----: |
-|   ➖   |   ✔️   |    ✔️    |
+|  ➖   |  ✔️   |   ✔️    |
 
 ## Quick Start
 
@@ -41,7 +40,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  uni_links_desktop: ^0.1.6
+  uni_links_desktop: ^0.1.7
 ```
 
 Or
@@ -125,7 +124,6 @@ Change the file `macos/Runner/Info.plist` as follows:
 	<string>NSApplication</string>
 </dict>
 </plist>
-}
 ```
 
 ##### Windows
@@ -144,6 +142,7 @@ Change the file `windows/runner/main.cpp` as follows:
 
 int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
                       _In_ wchar_t *command_line, _In_ int show_command) {
++  // Replace uni_links_desktop_example with your_window_title.
 +  HWND hwnd = ::FindWindow(L"FLUTTER_RUNNER_WIN32_WINDOW", L"uni_links_desktop_example");
 +  if (hwnd != NULL) {
 +    DispatchToUniLinksDesktop(hwnd);
@@ -188,6 +187,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   return EXIT_SUCCESS;
 }
 ```
+
+If you use `MSIX` to package your application, you need to add `protocol_activation` configuration in `msix_config`:
+
+```yaml
+msix_config:
+  protocol_activation: myprotocol
+```
+
+> See this issue for details: [YehudaKremer/msix#187](https://github.com/YehudaKremer/msix/issues/187)
 
 > Please see the example app of this plugin for a full example.
 
